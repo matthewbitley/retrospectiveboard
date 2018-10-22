@@ -1,0 +1,103 @@
+@import url('https://fonts.googleapis.com/css?family=Ubuntu');
+
+*:focus {
+    outline: none;
+}
+
+body {
+    background: #f2f2f2;
+}
+
+.App {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 20px;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+button {
+    cursor: pointer;
+}
+
+.BoardCntr {
+    display: flex;
+    justify-content: space-between;
+}
+
+.BoardCntr h2 {
+    text-align: center;
+}
+
+.BoardItem {
+    min-height: 100px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+    margin-top: 10px;
+    color: #fff;
+    padding: 20px;
+}
+
+.cat1 .BoardItem {
+    background: #5CA4A9;
+}
+
+.cat2 .BoardItem {
+    background: #ed6a5a;
+}
+
+.cat3 .BoardItem {
+    background: #cec96c;
+}
+
+.BoardItem textarea {
+    background: transparent;
+    border: 0;
+    font-size: 1rem;
+    color: #fff;
+    min-height: 60px;
+    resize: none;
+    overflow: visible;
+}
+
+.BoardItem textarea::placeholder {
+    color: rgba(255, 255, 255, .6);
+}
+
+.addButton {
+    width: 100%;
+    background: #ccc;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-bottom: 3px solid #aaa;
+}
+
+.FunctionNav {
+    display: flex;
+    justify-content: space-between;
+}
+
+.FunctionNav button {
+    background: transparent;
+    border: none;
+    line-height: 1;
+    padding: 0;
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, .6);
+}
+
+.FunctionNav button:hover {
+    color: rgba(255, 255, 255, 1);
+    transition: .3s ease all;
+}
+
+
+
+
+
+.BoardCntr > * {
+    width: 100%;
+    margin: 0 10px;
+}

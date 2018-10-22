@@ -1,50 +1,64 @@
 import React, { Component } from 'react';
-import Forms from './components/Forms/Forms'
+import './App.css';
+import BoardCol from './components/BoardCol/BoardCol'
 
 
-/***
- *    1) Use defaultProps to set the intital state of the Application.
- *       defaultProps should have a property called casing and value of UpperCase or LowerCase to determine the state
- *       of userInput. For example, setting defaultProps to LowerCase results in the user's input to be lower case.
- *
- *
- *
- *   2) Import the Forms component from the component directory and then pass the event handlers handleSubmission and handleOnChange functions
- *      to the child component Forms. Use event.preventDefault  to prevent the form from submitting in the handleSubmission function.
- *      In handleOnChange use defaultProps to determine the casing that will be rendered to the screen.
- *
- *
- *
- * */
+const items = [...Array(3).keys()].map(num => {
+  return {
+    itemCount: 0
+  };
+});
 
 class App extends Component {
-  state = {
-    userInput: ""
+
+  constructor(props) {
+    super(props);
+    this.state = { itemCount: 0, BoardItems: 0 }
+    this.handleClick = this.handleClick.bind(this);
   };
 
-  handleSubmission = (event) => {
-    event.preventDefault();
-    console.log(this.state.userInput)
-  };
+  handleClick(index) {
+    let newItems = this.state.items;
+    newItems[index].isVisible = false;
+  }
+    
+  addItem = () => {
+      this.setState({ itemCount: this.state.itemCount + 1 });
+  }
 
-  handleOnChange = (event) => {
-    const {casing} = this.props;
-    this.setState({
-      userInput:casing === 'lowercase' ? event.target.value.toLowerCase()
-      : event.target.value.toUpperCase()
-    })
+  delete = () => {
+    this.setState({ itemCount: this.state.itemCount - 1 });
   };
 
   render() {
     return (
     <div className="App">
-    <Forms handleSubmission={this.handleSubmission} handleChange={this.handleOnChange} />
+      <div className="BoardCntr">
+          <BoardCol
+            cat="cat1"
+            title="Went Well"
+            add={this.addItem}
+            move={this.move}
+            delete={this.delete}
+            items={this.itemsCount}
+          />
+          {/*<BoardCol
+            cat="cat2"
+            title="To Improve"
+            add={this.addItem}
+            move={this.move}
+            delete={this.delete}
+          />
+          <BoardCol 
+            cat="cat3"
+            title="Action Items"
+            add={this.addItem}
+            move={this.move}
+            delete={this.delete}
+          />*/}
+      </div>
     </div>);
   }
 }
-
-App.defaultProps = {
-  casing:'lowercase'
-};
 
 export default App;
