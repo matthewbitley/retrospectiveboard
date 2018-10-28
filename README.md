@@ -1,1 +1,1 @@
-A Retrospective Board.
+Click on a grey plus (+) button to add an item to the category. Any item can be moved to another category using the arrow icons, and can also be deleted by clicking the x icon. Clicking on the "Change Layout" button will change the layout to a one column layout.

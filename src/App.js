@@ -2,60 +2,71 @@ import React, { Component } from 'react';
 import './App.css';
 import BoardCol from './components/BoardCol/BoardCol'
 
-
-const items = [...Array(3).keys()].map(num => {
-  return {
-    itemCount: 0
-  };
-});
-
 class App extends Component {
 
-  constructor(props) {
-    super(props);
-    this.state = { itemCount: 0, BoardItems: 0 }
-    this.handleClick = this.handleClick.bind(this);
+  state = {
+   data:{
+     wentWell:[],
+     toImprove:[],
+     actionItems:[]
+   },
+   addClass: false
   };
-
-  handleClick(index) {
-    let newItems = this.state.items;
-    newItems[index].isVisible = false;
+ 
+  toggle() {
+    this.setState({addClass: !this.state.addClass});
   }
-    
-  addItem = () => {
-      this.setState({ itemCount: this.state.itemCount + 1 });
+  
+  addItem = (userInput = '', activity) => {
+    let newActivity =  {...this.state.data};
+    newActivity[activity].push('');
+    this.setState({
+      data:newActivity
+    })
   }
 
-  delete = () => {
-    this.setState({ itemCount: this.state.itemCount - 1 });
-  };
+  delete = (userInput = '', activity) => {
+    let newActivity =  {...this.state.data};
+    newActivity[activity].pop('');
+    this.setState({
+      data:newActivity
+    })
+  }
 
   render() {
+    const {wentWell,toImprove,actionItems} = this.state.data;
+    let boardClass = ["BoardCntr"];
+    if(this.state.addClass) {
+      boardClass.push('MobLayout');
+    }
     return (
     <div className="App">
-      <div className="BoardCntr">
+      <div className="btn-cntr"><button onClick={this.toggle.bind(this)} className="ChangeLayout">Change Layout</button></div>
+      <div className={boardClass.join(' ')}>
+           <BoardCol
+           cat="cat1"
+           title="Went Well"
+           add={()=>this.addItem(null,'wentWell')}
+           move={this.move}
+           delete={this.delete}
+           data={wentWell}
+         />
           <BoardCol
-            cat="cat1"
-            title="Went Well"
-            add={this.addItem}
-            move={this.move}
-            delete={this.delete}
-            items={this.itemsCount}
-          />
-          {/*<BoardCol
             cat="cat2"
             title="To Improve"
-            add={this.addItem}
+            add={()=>this.addItem(null,'toImprove')}
             move={this.move}
             delete={this.delete}
+            data={toImprove}
           />
           <BoardCol 
             cat="cat3"
             title="Action Items"
-            add={this.addItem}
+            add={()=>this.addItem(null,'actionItems')}
             move={this.move}
             delete={this.delete}
-          />*/}
+            data={actionItems}
+          />
       </div>
     </div>);
   }

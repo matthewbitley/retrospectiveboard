@@ -44,6 +44,11 @@ button {
     background: #5CA4A9;
 }
 
+.cat1 .leftbtn,
+.cat3 .rightbtn {
+    visibility: hidden;
+}
+
 .cat2 .BoardItem {
     background: #ed6a5a;
 }
@@ -63,7 +68,13 @@ button {
 }
 
 .BoardItem textarea::placeholder {
+    transition: .3s ease all;
     color: rgba(255, 255, 255, .6);
+}
+
+.BoardItem textarea:focus::placeholder {
+    color: rgba(255, 255, 255, 0);
+    transition: .3s ease all;
 }
 
 .addButton {
@@ -72,6 +83,11 @@ button {
     font-size: 1.2rem;
     font-weight: bold;
     border-bottom: 3px solid #aaa;
+}
+
+.addButton:hover {
+    background: #ddd;
+    transition: .3s ease all;
 }
 
 .FunctionNav {
@@ -93,11 +109,34 @@ button {
     transition: .3s ease all;
 }
 
-
-
-
-
 .BoardCntr > * {
     width: 100%;
     margin: 0 10px;
+}
+
+.btn-cntr {
+    text-align: center;
+}
+
+button.ChangeLayout {
+    background: rgba(159, 214, 180, 0);
+    margin: 0 auto;
+    color: rgba(159, 214, 180, 1);
+    border: 1px solid rgba(159, 214, 180, 1);
+    padding: 10px 15px;
+    transition: .3s ease all;
+}
+
+button.ChangeLayout:hover {
+    color: #fff;
+    background: rgba(159, 214, 180, 1);
+    transition: .3s ease all;
+}
+
+.MobLayout {
+    flex-wrap: wrap;
+}
+
+.MobLayout > * {
+    width: 100%;
 }
