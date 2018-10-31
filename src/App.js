@@ -10,28 +10,53 @@ class App extends Component {
      toImprove:[],
      actionItems:[]
    },
-   addClass: false
+   addClass: false,
+   userInput: ''
   };
  
   toggle() {
     this.setState({addClass: !this.state.addClass});
   }
   
-  addItem = (userInput = '', activity) => {
-    let newActivity =  {...this.state.data};
-    newActivity[activity].push('');
+  addItem = (e, category) => {
+    let newCategory =  {...this.state.data};
+    newCategory[category].push('');
     this.setState({
-      data:newActivity
+      data:newCategory
     })
   }
 
-  delete = (userInput = '', activity) => {
-    let newActivity =  {...this.state.data};
-    newActivity[activity].pop('');
-    this.setState({
-      data:newActivity
-    })
+  handleChange = (e) => {
+   this.setState({
+      userInput: e.target.value
+    });
   }
+
+  submit = (e, category) => {
+    e.preventDefault();
+    let newCategory = {...this.state.data};
+    newCategory[category] = this.state.userInput;
+    return this.setState({
+          data: newCategory,
+          userInput: ""
+        });
+  };
+
+  move = (e, category, index) => {
+    let newCategory =  {...this.state.data};
+    newCategory[category].splice(index, 1);
+    this.setState({
+      data:newCategory
+    })
+  };
+
+  delete = (category, index) => {
+    let newCategory =  {...this.state.data};
+    newCategory[category].splice(index, 1);
+    this.setState({
+      data:newCategory
+    })
+  };
 
   render() {
     const {wentWell,toImprove,actionItems} = this.state.data;
@@ -47,25 +72,35 @@ class App extends Component {
            cat="cat1"
            title="Went Well"
            add={()=>this.addItem(null,'wentWell')}
-           move={this.move}
+           move={()=>this.move(null,'wentWell')}
            delete={this.delete}
+           submit={this.submit}
            data={wentWell}
+           handleChange={this.handleChange}
+           category="wentWell"
+           
          />
           <BoardCol
             cat="cat2"
             title="To Improve"
             add={()=>this.addItem(null,'toImprove')}
-            move={this.move}
+            move={()=>this.move(null,'toImprove')}
             delete={this.delete}
+            submit={this.submit}
+            handleChange={this.handleChange}
             data={toImprove}
+            category="toImprove"
           />
           <BoardCol 
             cat="cat3"
             title="Action Items"
             add={()=>this.addItem(null,'actionItems')}
-            move={this.move}
+            move={()=>this.move(null,'actionItems')}
             delete={this.delete}
+            submit={this.submit}
+            handleChange={this.handleChange}
             data={actionItems}
+            category="actionItems"
           />
       </div>
     </div>);

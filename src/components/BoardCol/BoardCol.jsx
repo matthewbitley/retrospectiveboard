@@ -1,37 +1,48 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class BoardItem extends Component {
-  render() {
+function BoardItem(props) {
+
     return (
       <div className="BoardItem">
-              <textarea placeholder="Enter Text Here"></textarea>
+              <form className="flexform" onSubmit={(e) => props.submit(e)}>
+                <textarea value={props.userInput} onChange={e => props.handleChange(e)} placeholder="Enter Text Here"></textarea>
+                <button type="submit" className="submit-btn">Submit</button>
+              </form>
+              <p>{props.text}</p>
               <div className="FunctionNav">
-                <button className="leftbtn">&larr;</button>
-                <button onClick={this.delete}>x</button>
-                <button className="rightbtn">&rarr;</button>
+                <button onClick={props.move} className="leftbtn">&larr;</button>
+                <button onClick={() => {
+                  props.delete(props.category, props.index)
+                  }}>x</button>
+                <button onClick={props.move} className="rightbtn">&rarr;</button>
               </div>
       </div>
-    )};
+    );
 }
-
 
 function BoardCol(props) {
     return (
       <div className={props.cat}>
         <h2>{props.title}</h2>
         <button onClick={props.add} className="addButton">+</button>
-        {props.data.map((item,idata)=>{
-        const key = "Item-" + idata;
+        {props.data.map((item,index)=>{
+        const key = "Boarditem-" + props.cat + '-'  + index;
         return (
         <BoardItem
+            index={index}
             key={key}
             delete={props.delete}
+            move={props.move}
+            category={props.category}
+            data={props.data}
+            submit={props.submit}
+            userInput={props.userInput}
+            handleChange={props.handleChange}
         />
         )
       })}
       </div>
     );
-
 }
 
 export default BoardCol;
